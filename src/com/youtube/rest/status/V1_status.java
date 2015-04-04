@@ -47,7 +47,7 @@ public class V1_status {
 
 			conn = Oracle308tube.oracle308tubeConn().getConnection();
 			query = conn
-					.prepareStatement("select password, username from users",
+					.prepareStatement("select * from COMPTE",
 							ResultSet.TYPE_SCROLL_SENSITIVE,
 							ResultSet.CONCUR_READ_ONLY);
 
