@@ -75,4 +75,31 @@ public class V2_inventory {
 		
 		return Response.ok(returnString).build();
 	}
+	
+	@Path("/{brand}/{code}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response returnBrand(
+				@PathParam("brand") String brand,
+				@PathParam("code") int code) 
+				throws Exception {
+		
+		String returnString = null;
+		
+		JSONArray json = new JSONArray();
+		
+		try {
+			
+			Schema308Tube dao = new Schema308Tube();
+			
+			json = dao.queryReturnBrandAndCodeUser(brand, code);
+			returnString = json.toString();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(500).entity("Server was not able to process your request").build();
+		}
+		
+		return Response.ok(returnString).build();
+	}
 }
