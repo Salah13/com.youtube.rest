@@ -2,6 +2,7 @@ package com.youtube.rest.inventory;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -20,16 +21,17 @@ public class V2_inventory {
 			throws Exception {
 
 		String returnString = null;
-		JSONArray json = new JSONArray(); 
+		JSONArray json = new JSONArray();
 
 		try {
-			if(brand==null){
-				return Response.status(400).entity("Error : Please specify brand for this search").build();
+			if (brand == null) {
+				return Response.status(400)
+						.entity("Error : Please specify brand for this search")
+						.build();
 			}
 			Schema308Tube dao = new Schema308Tube();
-			json = dao.queryReturnBrandCompte(brand);
-			returnString=json.toString();
-			
+			json = dao.queryReturnBrandUser(brand);
+			returnString = json.toString();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,6 +40,39 @@ public class V2_inventory {
 					.build();
 		}
 
+		return Response.ok(returnString).build();
+	}
+	
+	/*@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response returnErrorBrand() throws Exception{
+	return Response.status(400)
+			.entity("Error : Please specify brand for this search")
+			.build();}*/
+
+	@Path("/{brand}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response returnBrand(
+				@PathParam("brand") String brand) 
+				throws Exception {
+		
+		String returnString = null;
+		
+		JSONArray json = new JSONArray();
+		
+		try {
+			
+			Schema308Tube dao = new Schema308Tube();
+			
+			json = dao.queryReturnBrandUser(brand);
+			returnString = json.toString();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(500).entity("Server was not able to process your request").build();
+		}
+		
 		return Response.ok(returnString).build();
 	}
 }

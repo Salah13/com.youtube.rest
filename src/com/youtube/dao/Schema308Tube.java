@@ -9,14 +9,13 @@ import java.sql.*;
 
 public class Schema308Tube extends Oracle308tube{
 	
-	public JSONArray queryReturnBrandCompte(String brand) throws Exception{
+	public JSONArray queryReturnBrandUser(String brand) throws Exception{
 		
 		PreparedStatement query = null;
 		Connection conn = null;
 		
 		ToJSON converter = new ToJSON();
 		JSONArray json= new JSONArray();
-		
 		
 
 		try {
