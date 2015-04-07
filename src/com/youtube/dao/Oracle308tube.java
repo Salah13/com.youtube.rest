@@ -1,5 +1,7 @@
 package com.youtube.dao;
 
+import java.sql.*;
+
 import javax.naming.*;
 import javax.sql.*;
 
@@ -28,5 +30,18 @@ public class Oracle308tube {
 		return Oracle308tube;
 
 	}
+	
+	protected Connection OracleConnection() {
+	Connection conn = null;
+		
+		try {
+			conn = oracle308tubeConn().getConnection();
+			return conn;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return conn;
+		
+	} 
 
 }
