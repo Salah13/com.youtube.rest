@@ -8,7 +8,8 @@ import java.sql.*;
 
 public class Schema308Tube extends Oracle308tube {
 
-	public int insertUser(int id, java.sql.Date date, String passwd, String username) throws Exception {
+	public int insertUser(java.sql.Date date, String passwd, String username)
+			throws Exception {
 
 		PreparedStatement query = null;
 		Connection conn = null;
@@ -16,15 +17,14 @@ public class Schema308Tube extends Oracle308tube {
 		try {
 			conn = OracleConnection();
 			query = conn.prepareStatement("insert into users "
-					 + "value(?,?,?,?)");
+					+ "(create_date,password,username) " + "value(?,?,?)");
 
-			query.setInt(1, id);
-			query.setDate(2, date);
-			query.setString(3, passwd);
-			query.setString(4, username);
+			query.setDate(1, date);
+			query.setString(2, passwd);
+			query.setString(3, username);
 
 			query.executeUpdate();
-		} 
+		}
 
 		catch (Exception e) {
 			e.printStackTrace();

@@ -132,7 +132,7 @@ public class V2_inventory {
 			ItemEntry itemEntry = mapper.readValue(incomingData,
 					ItemEntry.class);
 
-			int http_code = dao.insertUser(itemEntry.id,itemEntry.sqlDate,itemEntry.password,
+			int http_code = dao.insertUser(itemEntry.sqlDate,itemEntry.password,
 					itemEntry.username);
 
 			if (http_code == 200) {
@@ -157,7 +157,6 @@ public class V2_inventory {
 class ItemEntry {
 	public String username;
  	public String password;
- 	public int id;
  	public Date createdate = new Date();
  	public java.sql.Date sqlDate = new java.sql.Date(createdate.getTime());
 
