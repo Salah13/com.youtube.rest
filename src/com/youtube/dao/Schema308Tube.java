@@ -8,6 +8,36 @@ import java.sql.*;
 
 public class Schema308Tube extends Oracle308tube {
 
+	public int insertUser(int id, java.sql.Date date, String passwd, String username) throws Exception {
+
+		PreparedStatement query = null;
+		Connection conn = null;
+
+		try {
+			conn = OracleConnection();
+			query = conn.prepareStatement("insert into users "
+					 + "value(?,?,?,?)");
+
+			query.setInt(1, id);
+			query.setDate(2, date);
+			query.setString(3, passwd);
+			query.setString(4, username);
+
+			query.executeUpdate();
+		} 
+
+		catch (Exception e) {
+			e.printStackTrace();
+			return 500;
+
+		} finally {
+			if (conn != null)
+				conn.close();
+
+		}
+		return 200;
+	}
+
 	public JSONArray queryReturnBrandUser(String brand) throws Exception {
 
 		PreparedStatement query = null;
@@ -43,7 +73,8 @@ public class Schema308Tube extends Oracle308tube {
 		return json;
 	}
 
-	public JSONArray queryReturnBrandAndCodeUser(String brand, int code) throws Exception {
+	public JSONArray queryReturnBrandAndCodeUser(String brand, int code)
+			throws Exception {
 
 		PreparedStatement query = null;
 		Connection conn = null;
@@ -54,8 +85,7 @@ public class Schema308Tube extends Oracle308tube {
 		try {
 			conn = OracleConnection();
 			query = conn.prepareStatement("select * " + "from users "
-					+ "where UPPER(username)=? "
-					+ "and id=?");
+					+ "where UPPER(username)=? " + "and id=?");
 			query.setString(1, brand.toUpperCase());
 			query.setInt(2, code);
 			ResultSet rs = query.executeQuery();
